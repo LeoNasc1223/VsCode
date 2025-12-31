@@ -43,5 +43,3 @@ texto_formatado = "\n".join(texto_para_copiar)
 pyperclip.copy(texto_formatado)
 
 print("Dados copiados para a area de tranferencia!")
-
-#teste
