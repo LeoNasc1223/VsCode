@@ -1,4 +1,14 @@
 import pyperclip, re
+from pathlib import Path
+
+BASE_DIR = Path.cwd()
+
+pasta_de_dados = BASE_DIR / "emails_e_telefones"
+
+dados = pasta_de_dados / "dados.txt"
+
+pasta_de_dados.mkdir(parents=True, exist_ok=True)
+
 
 email_regex = re.compile(r'''(
     [a-zA-Z0-9._%+-]+      # nome do usuário
@@ -42,4 +52,7 @@ texto_formatado = "\n".join(texto_para_copiar)
 
 pyperclip.copy(texto_formatado)
 
-print("Dados copiados para a area de tranferencia!")
+with open(dados, "w", encoding="utf-8") as d:
+    d.write(texto_formatado)
+
+print(f"Dados copiados para a area de tranferencia e salvos no arquivo {dados}")
