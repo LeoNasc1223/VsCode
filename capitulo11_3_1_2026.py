@@ -1,4 +1,10 @@
 import webbrowser, pyperclip, requests, bs4
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
+import time
 """
 pesquisa = "youtube"
 
@@ -70,7 +76,7 @@ print(f"Titulo:{titulos[0].getText()}")
 for p in produtos:
     print(f"Produtos encontrados: {p.getText()}")
 """
-
+"""
 arquivo_html = open("index.html", encoding="utf=8")
 
 soup = bs4.BeautifulSoup(arquivo_html, "html.parser")
@@ -85,3 +91,17 @@ for item in produto:
     print(f"Livro:{nome} | {preco} | {link}")
 
 arquivo_html.close()
+"""
+#---------------------------------------------------------------------------------------------------------------------
+
+brave_options = Options()
+brave_options.binary_location = '/usr/bin/brave-browser'
+
+driver = webdriver.Chrome(options=brave_options)
+
+driver.get("http://books.toscrape.com/")
+
+nome_primeiro_livro = driver.find_element(By.CSS_SELECTOR, "h3 a")
+
+
+print(nome_primeiro_livro.get_attribute("title"))
