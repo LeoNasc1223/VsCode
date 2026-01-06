@@ -10,17 +10,16 @@ DICIONÁRIO DE USO:
 - Contras: Mais pesado para o computador e mais lento que o BeautifulSoup.
 """
 from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.chrome.service import Service # Nova importação útil
+from webdriver_manager.chrome import ChromeDriverManager # Recomendado instalar
 from selenium.webdriver.chrome.options import Options
-import time
 
-# Configuração para o Brave no Linux
-brave_options = Options()
-brave_options.binary_location = '/usr/bin/brave-browser'
+# 1. Configuração simplificada
+chrome_options = Options()
+# chrome_options.add_argument("--headless") # Opcional: roda sem abrir a janela
 
-# Inicialização
-driver = webdriver.Chrome(options=brave_options)
+# 2. Inicialização (Usando o ChromeDriverManager para não ter erro de versão)
+driver = webdriver.Chrome(options=chrome_options)
 
 try:
     # --- COMANDOS PRINCIPAIS ---
