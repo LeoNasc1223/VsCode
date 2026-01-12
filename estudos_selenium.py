@@ -4,25 +4,22 @@ import time
 
 navegador = webdriver.Chrome()
 
-navegador.get("https://www.pcdiga.com/")
+navegador.get("https://www.worten.pt/search?query=iphone")
 
 navegador.maximize_window()
 
-time.sleep(3)
+time.sleep(5)
 
-permitir_cookies = navegador.find_element(By.XPATH, "//*[contains(text(), 'Permitir')]")
-permitir_cookies.click()
+aceitar_cookies = navegador.find_element(By.CLASS_NAME, "button--md button--primary button--black button")
+aceitar_cookies.click()
 
-time.sleep(3)
 
-botao_armazenamento = navegador.find_element(By.XPATH, "//a[contains(., 'Armazenamento')]")
-botao_armazenamento.click()
+lista_de_produtos = navegador.find_elements(By.CLASS_NAME, "listing-content__list-container")
 
-time.sleep(3)
 
-lista_produtos = navegador.find_elements(By.CLASS_NAME, "product-list")
 
-for produtos in lista_produtos:
-    print(produtos.get_attribute("href").text)
+for produto in lista_de_produtos:
+    nome = navegador.find_element(By.CLASS_NAME, "product-card__details").text
+    print(nome)
 
 time.sleep(999)
