@@ -13,6 +13,9 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service # Nova importação útil
 from webdriver_manager.chrome import ChromeDriverManager # Recomendado instalar
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
+import time
 
 # 1. Configuração simplificada
 chrome_options = Options()

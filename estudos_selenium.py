@@ -1,25 +1,48 @@
 from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 import time
 
-navegador = webdriver.Chrome()
+chrome_options = Options()
 
-navegador.get("https://www.worten.pt/search?query=iphone")
+navegador = webdriver.Chrome(options=chrome_options)
 
-navegador.maximize_window()
+try:
+    navegador.get("https://www.mercadolivre.com.br")
 
-time.sleep(5)
+    navegador.maximize_window()
 
-aceitar_cookies = navegador.find_element(By.CLASS_NAME, "button--md button--primary button--black button")
-aceitar_cookies.click()
+    barra_de_busca = navegador.find_element(By.CLASS_NAME, "nav-search-input")
+    barra_de_busca.send_keys("SSD 1TB")
 
+    lupa_barra_de_busca = navegador.find_element(By.CLASS_NAME, "nav-icon-search")
+    lupa_barra_de_busca.click()
 
-lista_de_produtos = navegador.find_elements(By.CLASS_NAME, "listing-content__list-container")
+    time.sleep(3)
 
+    lista_produtos = navegador.find_elements(By.CLASS_NAME, "poly-card__content")
 
+    for produto in lista_produtos[:5]:
+        nome = produto.find_element(By.CLASS_NAME, "poly-component__title").text
+        container_preco = produto.find_element(By.CLASS_NAME, "poly-price__current")
+        elemento_preco = container_preco.find_element(By.CLASS_NAME, "andes-money-amount")
+        texto_preco = elemento_preco.get_attribute("aria-label")
 
-for produto in lista_de_produtos:
-    nome = navegador.find_element(By.CLASS_NAME, "product-card__details").text
-    print(nome)
+        preco_formatado = texto_preco.replace("Antes:", "").replace("Agora: ", "").replace(" reais com ", ".").replace(" centavos", "").replace(" reais", "").replace("", "").strip()
 
-time.sleep(999)
+        print(f"Nome {nome} | Preço R${preco_formatado}") 
+
+        float_do_preco = float(preco_formatado)
+
+        if float_do_preco < 400.00:
+            print(f"Esse produto esta com preço baixo!")
+
+        print("--------------------------")   
+    
+    time.sleep(20)
+    navegador.quit()
+
+except ValueError as e:
+    print(e)
