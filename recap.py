@@ -13,3 +13,11 @@ for preco in precos_brutos:
 
 for tudo in precos_limpos:
     print(tudo)
+
+print("---------------------------------")
+
+soma = sum(precos_limpos)
+
+media = soma / len(precos_limpos)
+
+print(media)
