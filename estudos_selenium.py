@@ -45,4 +45,4 @@ try:
     navegador.quit()
 
 except ValueError as e:
-    print(e)
+    print(f"Ocorreu um erro:{e}")
